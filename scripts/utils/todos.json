@@ -1,0 +1,12 @@
+[
+    { "id": "1", "title": "Buy groceries", "status": true },
+    { "id": "2", "title": "Walk the dog", "status": false },
+    { "id": "3", "title": "Finish project report", "status": true },
+    { "id": "4", "title": "Call mom", "status": false },
+    { "id": "5", "title": "Read a book", "status": true },
+    { "id": "6", "title": "Pay utility bills", "status": false },
+    { "id": "7", "title": "Plan weekend trip", "status": true },
+    { "id": "8", "title": "Clean the kitchen", "status": false },
+    { "id": "9", "title": "Write blog post", "status": true },
+    { "id": "10", "title": "Meditate for 10 minutes", "status": false }
+]

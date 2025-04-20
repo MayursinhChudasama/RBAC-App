@@ -1,0 +1,34 @@
+[{
+"id": "1",
+"name": "Alice",
+"email": "alice@example.com",
+"password": "alice@123",
+"role": "Super Admin",
+"todos": []
+},
+{
+    "id": "2",
+    "name": "Bob",
+    "email": "bob@example.com",
+    "password": "bob@123",
+    "role": "Admin",
+    "todos": [1,3,5]
+    },
+    {
+        "id": "3",
+        "name": "Charlie",
+        "email": "charlie@example.com",
+        "password": "charlie@123",
+        "role": "User",
+        "todos": [2,4,6]
+        },
+        {
+            "id": "4",
+            "name": "David",
+            "email": "david@example.com",
+            "password": "david@123",
+            "role": "Tester",
+            "todos": [7,8,9,10]
+            }
+                        
+]
