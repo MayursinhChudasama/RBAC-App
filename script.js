@@ -14,10 +14,10 @@ const enterBtn = document.querySelector(".enterBtn");
 enterBtn.onclick = function () {
   for (let user of allUsers) {
     if (email.value == user.email && pass.value == user.password) {
-      location.replace("./pages/home.html");
+      //   location.replace("./pages/home.html");
+      location.href = "./pages/home.html";
     } else {
-      console.log("login failed");
+      //   console.log("login failed");
     }
   }
 };
-// console.log("start");

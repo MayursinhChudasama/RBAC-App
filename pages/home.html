@@ -4,8 +4,83 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <link rel="stylesheet" href="../styles/home.css" />
   </head>
   <body>
-    <h1>Home</h1>
+    <!-- Hidden checkbox toggle -->
+    <input type="checkbox" id="menu-toggle" />
+
+    <!-- Top Navbar -->
+    <header class="top-navbar">
+      <div class="nav-content">
+        <!-- Hamburger icon inside top navbar -->
+        <label class="hamburger" for="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+        <nav class="top-links">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">User</a>
+          <a href="../index.html">Log Out</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <a href="#">
+        <span class="icon">👨🏻‍💼</span>
+        <span class="label">Users</span>
+      </a>
+      <a href="#">
+        <span class="icon">📄</span>
+        <span class="label">Role</span>
+      </a>
+      <a href="#">
+        <span class="icon">⚙️</span>
+        <span class="label">Permissions</span>
+      </a>
+      <a href="#">
+        <span class="icon">✅</span>
+        <span class="label">To-dos</span>
+      </a>
+    </nav>
+
+    <main id="showContent">
+      <div class="box inline">
+        <button>Add</button>
+        <h3>Welcome!</h3>
+        <div class="custom-dropdown">
+          <div style="display: inline-flex; gap: 10px">
+            <div class="dropdown-toggle">Select</div>
+            <button id="filterBtn" style="width: 50px">Filter</button>
+          </div>
+          <div class="dropdown-options"></div>
+        </div>
+      </div>
+      <div class="box height">
+        <table id="contentTable">
+          <thead>
+            <tr id="columnHead">
+              <!-- <td>1</td>
+              <td>Alice</td>
+              <td>alice@example.com</td>
+              <td>"alice@123</td>
+              <td>Super Admin</td>
+              <td>Open</td> -->
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script type="module" src="../scripts/home.js"></script>
   </body>
 </html>

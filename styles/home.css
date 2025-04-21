@@ -1,0 +1,224 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+  
+  /* Hide the checkbox toggle */
+  #menu-toggle {
+    display: none;
+  }
+  
+  /* Top Navbar */
+  .top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #111;
+    color: white;
+    display: flex;
+    align-items: center;
+    z-index: 1002;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .top-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+  }
+  
+  .top-links a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Hamburger Icon */
+  .hamburger {
+    width: 30px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  
+  .hamburger span {
+    height: 4px;
+    width: 100%;
+    background: white;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 60px; /* below the top navbar */
+    left: 0;
+    width: 60px;
+    height: calc(100% - 60px);
+    background-color: #222;
+    padding-top: 20px;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    z-index: 1000;
+  }
+  
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  
+  .sidebar a:hover {
+    background-color: #333;
+  }
+  
+  .sidebar .icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .sidebar .label {
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+  }
+  
+  /* Expand sidebar when checked */
+  #menu-toggle:checked ~ .sidebar {
+    width: 200px;
+  }
+  
+  #menu-toggle:checked ~ .sidebar .label {
+    opacity: 1;
+  }
+  
+  /* Animate hamburger icon */
+  #menu-toggle:checked + .top-navbar .hamburger span:nth-child(1),
+  #menu-toggle:checked ~ .top-navbar .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  #menu-toggle:checked + .top-navbar .hamburger span:nth-child(2),
+  #menu-toggle:checked ~ .top-navbar .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  #menu-toggle:checked + .top-navbar .hamburger span:nth-child(3),
+  #menu-toggle:checked ~ .top-navbar .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+  
+  /* ShowContent Div */
+  #showContent {
+    margin-left: 60px; /* matches collapsed sidebar width */
+    padding: 10px;
+    padding-top: 80px; /* leave space below top navbar */
+    transition: margin-left 0.3s ease;
+    min-height: calc(100vh - 60px);
+    background-color: #f9f9f9;
+    
+  }
+  
+  /* When sidebar is expanded */
+  #menu-toggle:checked ~ #showContent {
+    margin-left: 200px;
+  }
+
+  .box{
+    border: 2px solid black;
+    margin: 10px;
+    padding: 10px;
+    /* width: 500px; */
+    /* height: 500px; */
+  }
+
+  .height{
+    height: 700px;
+  }
+  .inline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* width: 80%; */
+    position: relative;
+    
+  }
+  
+  /* .inline h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+  } */
+
+  .custom-dropdown {
+    position: relative;
+    width: 200px;
+    /* user-select: none; */
+  }
+  
+  .dropdown-toggle {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .dropdown-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: white;
+    /* max-height: 150px; */
+    overflow-y: auto;
+    z-index: 10;
+  }
+  /* .display{
+    display: block;
+  } */
+  .dropdown-options label {
+    display: flex;
+    padding: 5px ;
+    cursor: pointer;
+  }
+  
+  .dropdown-options label:hover {
+    background-color: #eee;
+  }
+  
+  #contentTable {
+    width: 100%;
+    border-collapse: collapse;
+    /* margin-top: 20px; */
+    text-align: center;
+  }
+  
+  #contentTable th,
+  #contentTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  #contentTable thead {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
