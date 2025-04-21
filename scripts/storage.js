@@ -2,24 +2,36 @@
 
 export const storage = {
   users: {
-    getUser: () => {
+    getData: () => {
       return JSON.parse(localStorage.getItem("users")) || [];
     },
-    setUser: (users) => {
+    setData: (users) => {
       localStorage.setItem("users", JSON.stringify(users));
     },
   },
   roles: {
-    getRole: () => {},
-    setRole: () => {},
+    getData: () => {
+      return JSON.parse(localStorage.getItem("roles")) || [];
+    },
+    setData: (roles) => {
+      localStorage.setItem("roles", JSON.stringify(roles));
+    },
   },
   permissions: {
-    getPermission: () => {},
-    setPermission: () => {},
+    getData: () => {
+      return JSON.parse(localStorage.getItem("permissions")) || [];
+    },
+    setData: (permissions) => {
+      localStorage.setItem("permissions", JSON.stringify(permissions));
+    },
   },
   todos: {
-    getTodo: () => {},
-    setTodo: () => {},
+    getData: () => {
+      return JSON.parse(localStorage.getItem("todos")) || [];
+    },
+    setData: (todos) => {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    },
   },
 };
 
@@ -29,3 +41,5 @@ export async function getFromJSON(url) {
   const data = await response.json();
   return data;
 }
+
+//

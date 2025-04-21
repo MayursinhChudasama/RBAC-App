@@ -1,18 +1,70 @@
-[{
-    "id": "1",
-    "name": "create"    
-    }, 
-{
-        "id": "2",
-        "name": "read"    
-        },
-        {
-            "id": "3",
-            "name": "update"    
-            },
+[    {"users":[
+            {
+                "id": "1",
+                "name": "create"
+                    }, 
+            {
+                "id": "2",
+                "name": "read"    
+                    },
+            {
+                "id": "3",
+                "name": "update"    
+                    },
             {
                 "id": "4",
                 "name": "delete"    
-                }
-        
+                        }]},
+    {"roles":[
+            {
+                "id": "1",
+                "name": "create"
+                    }, 
+            {
+                "id": "2",
+                "name": "read"    
+                    },
+            {
+                "id": "3",
+                "name": "update"    
+                    },
+            {
+                "id": "4",
+                "name": "delete"    
+                        }]},
+    {"permissions":[
+            {
+                "id": "1",
+                "name": "create"
+                    }, 
+            {
+                "id": "2",
+                "name": "read"    
+                    },
+            {
+                "id": "3",
+                "name": "update"    
+                    },
+            {
+                "id": "4",
+                "name": "delete"    
+                        }]},
+    {"todos":[
+            {
+                "id": "1",
+                "name": "create"
+                    }, 
+            {
+                "id": "2",
+                "name": "read"    
+                    },
+            {
+                "id": "3",
+                "name": "update"    
+                    },
+            {
+                "id": "4",
+                "name": "delete"    
+                        }]} 
+                
     ]

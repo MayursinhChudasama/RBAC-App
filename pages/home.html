@@ -30,28 +30,28 @@
 
     <!-- Sidebar -->
     <nav class="sidebar">
-      <a href="#">
-        <span class="icon">👨🏻‍💼</span>
-        <span class="label">Users</span>
+      <a href="#" data-name="users">
+        <span class="icon" data-name="users">👨🏻‍💼</span>
+        <span class="label" data-name="users">Users</span>
       </a>
-      <a href="#">
-        <span class="icon">📄</span>
-        <span class="label">Role</span>
+      <a href="#" data-name="roles">
+        <span class="icon" data-name="roles">📄</span>
+        <span class="label" data-name="roles">Roles</span>
       </a>
-      <a href="#">
-        <span class="icon">⚙️</span>
-        <span class="label">Permissions</span>
+      <a href="#" data-name="permissions">
+        <span class="icon" data-name="permissions">⚙️</span>
+        <span class="label" data-name="permissions">Permissions</span>
       </a>
-      <a href="#">
-        <span class="icon">✅</span>
-        <span class="label">To-dos</span>
+      <a href="#" data-name="todos">
+        <span class="icon" data-name="todos">✅</span>
+        <span class="label" data-name="todos">Todos</span>
       </a>
     </nav>
 
     <main id="showContent">
       <div class="box inline">
         <button>Add</button>
-        <h3>Welcome!</h3>
+        <h3 class="heading">Welcome!</h3>
         <div class="custom-dropdown">
           <div style="display: inline-flex; gap: 10px">
             <div class="dropdown-toggle">Select</div>
@@ -63,19 +63,10 @@
       <div class="box height">
         <table id="contentTable">
           <thead>
-            <tr id="columnHead">
-              <!-- <td>1</td>
-              <td>Alice</td>
-              <td>alice@example.com</td>
-              <td>"alice@123</td>
-              <td>Super Admin</td>
-              <td>Open</td> -->
-            </tr>
+            <tr id="columnHead"></tr>
           </thead>
           <tbody id="tbody">
-            <tr>
-              
-            </tr>
+            <tr></tr>
           </tbody>
         </table>
       </div>

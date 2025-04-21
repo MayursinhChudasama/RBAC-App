@@ -1,29 +1,58 @@
-import { getFromJSON } from "./storage.js";
-import { storage } from "./storage.js";
+import { getFromJSON, storage } from "./storage.js";
 
-// getting all column names and setting in the div
-const allUsers = storage.users.getUser();
-const allColumns = Object.keys(allUsers[0]);
-const filterOptions = document.querySelector(".dropdown-options");
+//side bar->tab selection
+const sidebar = document.querySelector(".sidebar");
+const heading = document.querySelector(".heading");
+export let currentTab = sidebar.children[0];
+currentTab.style.backgroundColor = "yellow";
+heading.innerHTML = currentTab.dataset.name.toUpperCase();
+let cur = currentTab.dataset.name.toLowerCase();
+let allTabs = storage[cur].getData();
+//
+document.onload = function () {};
+//
+export function handleCurrentTab(event) {
+  heading.innerHTML = event.target.dataset.name.toUpperCase();
+  if (event.target.tagName == "A") {
+    currentTab = event.target;
+  } else {
+    currentTab = event.target.parentElement;
+  }
+  for (let child of sidebar.children) {
+    child.style.backgroundColor = "#222";
+  }
+  currentTab.style.backgroundColor = "yellow";
+  cur = currentTab.dataset.name.toLowerCase();
+  allTabs = storage[cur].getData();
+  console.log(allTabs);
+}
+sidebar.addEventListener("click", handleCurrentTab);
+
+//show in filter
+
+console.log("allTabs-render", allTabs[0]);
 const toggle = document.querySelector(".dropdown-toggle");
-// const options = document.querySelector(".dropdown-options");
-const columnHead = document.querySelector("#columnHead");
 
-for (let option of allColumns) {
-  //show in filter
-  let innerHTML = `<label><input type="checkbox" value="${option}" checked/>${option}</label>`;
+const allColumnNames = Object.keys(allTabs[0]);
+const filterOptions = document.querySelector(".dropdown-options");
+filterOptions.innerHTML = `<label><input type="checkbox" value="id" checked/>ID</label>`;
+filterOptions.style.display = "none";
+
+for (let option of allColumnNames) {
+  let innerHTML = `<label><input type="checkbox" value="${option}" checked/>${option.toUpperCase()}</label>`;
   filterOptions.innerHTML += innerHTML;
-  //show in table
-  //   let tableInnerHTML = `<th>${option}</th>`;
-  //   columnHead.innerHTML += tableInnerHTML;
 }
 
 //
+// console.log("filterOptionschildren", filterOptions.children);
+// console.log("filterOptionsstyle", filterOptions.style.display);
+
 toggle.addEventListener("click", () => {
+  if (filterOptions.style.display == "none") {
+    filterOptions.style.display = "block";
+  }
   if (filterOptions.style.display == "block") {
     filterOptions.style.display = "none";
-  } else {
-    filterOptions.style.display = "block";
   }
 });
 document.addEventListener("click", (e) => {
@@ -33,8 +62,9 @@ document.addEventListener("click", (e) => {
 });
 
 //render in table
+
+const columnHead = document.querySelector("#columnHead");
 const filterBtn = document.querySelector("#filterBtn");
-console.log(allUsers);
 filterBtn.onclick = function () {
   //render column-head
   const allInputs = Array.from(filterOptions.children)
@@ -45,35 +75,18 @@ filterBtn.onclick = function () {
     let tableInnerHTML = `<th>${input.value}</th>`;
     columnHead.innerHTML += tableInnerHTML;
   }
-  //render rows
-  //   for (let user of allUsers) {
-  //     console.log(user);
-  //     const row = document.createElement("tr");
-  //     const tbody = document.querySelector("#tbody");
-  //     tbody.append(row);
-  //     // cell creation
-  //     for (let input of allInputs) {
-  //       const cell = document.createElement("td");
-  //       row.append(cell);
-  //       cell.innerText = `row${0 + 1}`;
-  //     }
-  //     // for (let j = 0; j < allInputs.length; j++) {}
-  //   }
-
   tbody.innerHTML = "";
-  for (let i = 0; i < allUsers.length; i++) {
+  for (let i = 0; i < allTabs.length; i++) {
     // row creation
     const row = document.createElement("tr");
     const tbody = document.querySelector("#tbody");
     tbody.append(row);
     // cell creation
-    // console.log("allUsers[i]", allUsers[i].name);
     for (let j = 0; j < allInputs.length; j++) {
       const cell = document.createElement("td");
       row.append(cell);
       let keyName = columnHead.children[j].innerText;
-      cell.innerText = allUsers[i][keyName];
+      cell.innerText = allTabs[i][keyName];
     }
   }
-  //   console.log(tbody.children);
 };
