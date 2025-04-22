@@ -1,17 +1,31 @@
-import { getFromJSON, storage } from "./storage.js";
+import { storage } from "./storage.js";
 
-//side bar->tab selection
+// all variables with query selectors
 const sidebar = document.querySelector(".sidebar");
+const navbar = document.querySelector(".top-navbar");
 const heading = document.querySelector(".heading");
-export let currentTab = sidebar.children[0];
+const toggle = document.querySelector(".dropdown-toggle");
+const filterOptions = document.querySelector(".dropdown-options");
+const filterBtn = document.querySelector("#filterBtn");
+const columnHead = document.querySelector("#columnHead");
+// functions
+// defaultTab: on the page load, the user tab is selected as default and data is shown
+// function defaultTab() {}
+let currentTab = sidebar.children[0];
 currentTab.style.backgroundColor = "yellow";
+currentTab.children[1].style.color = "#222";
 heading.innerHTML = currentTab.dataset.name.toUpperCase();
 let cur = currentTab.dataset.name.toLowerCase();
 let allTabs = storage[cur].getData();
+//when page reloads data should be shown directly on the user page
+renderFilter();
+renderData();
 //
-document.onload = function () {};
-//
-export function handleCurrentTab(event) {
+sidebar.addEventListener("click", handleCurrentTab);
+toggle.addEventListener("click", filterOnOff);
+filterBtn.addEventListener("click", renderData);
+// handleCurrentTab: when clicked on a sidebar tab, current tab is handled and  data should be shown directly
+function handleCurrentTab() {
   heading.innerHTML = event.target.dataset.name.toUpperCase();
   if (event.target.tagName == "A") {
     currentTab = event.target;
@@ -20,60 +34,49 @@ export function handleCurrentTab(event) {
   }
   for (let child of sidebar.children) {
     child.style.backgroundColor = "#222";
+    child.children[1].style.color = "white";
   }
   currentTab.style.backgroundColor = "yellow";
+  currentTab.children[1].style.color = "#222";
   cur = currentTab.dataset.name.toLowerCase();
   allTabs = storage[cur].getData();
-  console.log(allTabs);
-}
-sidebar.addEventListener("click", handleCurrentTab);
-
-//show in filter
-
-console.log("allTabs-render", allTabs[0]);
-const toggle = document.querySelector(".dropdown-toggle");
-
-const allColumnNames = Object.keys(allTabs[0]);
-const filterOptions = document.querySelector(".dropdown-options");
-filterOptions.innerHTML = `<label><input type="checkbox" value="id" checked/>ID</label>`;
-filterOptions.style.display = "none";
-
-for (let option of allColumnNames) {
-  let innerHTML = `<label><input type="checkbox" value="${option}" checked/>${option.toUpperCase()}</label>`;
-  filterOptions.innerHTML += innerHTML;
+  renderFilter();
+  renderData();
 }
 
-//
-// console.log("filterOptionschildren", filterOptions.children);
-// console.log("filterOptionsstyle", filterOptions.style.display);
+// renderFilter : the columnHead names become the input buttons for checklist
+function renderFilter() {
+  const allColumnNames = Object.keys(allTabs[0]);
 
-toggle.addEventListener("click", () => {
-  if (filterOptions.style.display == "none") {
-    filterOptions.style.display = "block";
+  filterOptions.innerHTML = "";
+  // filterOptions.style.display = "none";
+  for (let option of allColumnNames) {
+    let innerHTML = `<label><input type="checkbox" value="${option}" checked/>${option.toUpperCase()}</label>`;
+    filterOptions.innerHTML += innerHTML;
   }
+}
+
+//filterOnOff: when clicked on the "Select", the checklist buttons show or hide
+function filterOnOff() {
   if (filterOptions.style.display == "block") {
     filterOptions.style.display = "none";
+  } else {
+    filterOptions.style.display = "block";
   }
-});
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".custom-dropdown")) {
-    filterOptions.style.display = "none";
-  }
-});
-
-//render in table
-
-const columnHead = document.querySelector("#columnHead");
-const filterBtn = document.querySelector("#filterBtn");
-filterBtn.onclick = function () {
-  //render column-head
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".custom-dropdown")) {
+      filterOptions.style.display = "none";
+    }
+  });
+}
+// renderData: when clicked on the "Filter", the data is shown as the table in the contentTable table
+function renderData() {
   const allInputs = Array.from(filterOptions.children)
     .map((child) => child.children[0])
     .filter((child) => child.checked == true);
   columnHead.innerHTML = "";
   for (let input of allInputs) {
-    let tableInnerHTML = `<th>${input.value}</th>`;
-    columnHead.innerHTML += tableInnerHTML;
+    columnHead.innerHTML += `<th>${input.value}</th>`;
   }
   tbody.innerHTML = "";
   for (let i = 0; i < allTabs.length; i++) {
@@ -89,4 +92,54 @@ filterBtn.onclick = function () {
       cell.innerText = allTabs[i][keyName];
     }
   }
-};
+}
+//
+
+//when clicked on a sidebar tab, data should be shown directly
+
+//then as the filter button is clicked then the data changes
+
+//addition: as the tab is changed the previous filter button is stored and shown same
+
+//add-button / Modal
+const modal = document.querySelector(".modal-overlay");
+const modalAppend = document.querySelector(".modalAppend");
+const addBtn = document.querySelector(".addBtn");
+const closeBtn = document.querySelector(".closeBtn");
+function OpenModal() {
+  document.onkeydown = function (event) {
+    if (event.code == "Escape") {
+      closeModal();
+    }
+  };
+  modal.classList.add("open-modal");
+  sidebar.classList.add("disabled");
+  navbar.classList.add("disabled");
+  //
+  const allInputs = Array.from(filterOptions.children).map(
+    (child) => child.children[0]
+  );
+  modalAppend.innerHTML = "";
+  for (let input of allInputs) {
+    modalAppend.innerHTML += `<label for="${
+      input.value
+    }">${input.value.toUpperCase()}:</label>
+    <input type="text" style="margin: 10px" id="${input.value}"/> <br />`;
+  }
+  //addEntry
+  let newAllTabs = storage[cur].getData();
+  let newEntry = {};
+  console.log('newAllTabs', newAllTabs);
+  console.log('newEntry', newEntry);
+  console.log(cur);
+  console.log(storage[cur].setData);
+}
+function addEntry() {}
+addBtn.addEventListener("click", OpenModal);
+function closeModal() {
+  modal.classList.remove("open-modal");
+  sidebar.classList.remove("disabled");
+  navbar.classList.remove("disabled");
+}
+closeBtn.addEventListener("click", closeModal);
+//
