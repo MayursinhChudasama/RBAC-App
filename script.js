@@ -36,7 +36,11 @@ const enterBtn = document.querySelector(".enterBtn");
 enterBtn.onclick = function () {
   for (let user of allUsers) {
     if (email.value == user.email && pass.value == user.password) {
+      let currentUser = `{email: ${user.email}, pass:${user.password}}`;
+      // console.log(currentUser);
+
       //   location.replace("./pages/home.html");
+      localStorage.setItem("currentUser", currentUser);
       location.href = "./pages/home.html";
     } else {
       //   console.log("login failed");
