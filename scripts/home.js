@@ -34,7 +34,7 @@ renderFilter();
 renderData();
 // add event Listener
 sidebar.addEventListener("click", handleCurrentTab);
-toggle.addEventListener("click", filterOnOff);
+toggle.addEventListener("click", () => filterOnOff(filterOptions));
 filterBtn.addEventListener("click", renderData);
 addBtn.addEventListener("click", OpenModal);
 closeBtn.addEventListener("click", closeModal);
@@ -74,6 +74,7 @@ function OpenModal() {
       labelTag.innerText = input.value.toUpperCase() + ": ";
       modalAppend.append(labelTag);
       const selectTag = document.createElement("select");
+      selectTag.setAttribute("multiple", "");
       selectTag.id = input.value;
       selectTag.style.margin = "10px";
       labelTag.append(selectTag);
@@ -112,7 +113,9 @@ function addEntry() {
         let ans = storage.todos
           .getData()
           .filter((todo) =>
-            document.querySelector("#" + key).value.includes(todo.title)
+            Array.from(document.querySelector("#" + key).selectedOptions)
+              .map((e) => e.innerText)
+              .includes(todo.title)
           )
           .map((e) => e.id);
         newEntry[key] = ans;

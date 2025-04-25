@@ -48,15 +48,15 @@ export function renderFilter() {
   }
 }
 //filterOnOff: when clicked on the "Select", the checklist buttons show or hide
-export function filterOnOff() {
-  if (filterOptions.style.display == "block") {
-    filterOptions.style.display = "none";
+export function filterOnOff(options) {
+  if (options.style.display == "block") {
+    options.style.display = "none";
   } else {
-    filterOptions.style.display = "block";
+    options.style.display = "block";
   }
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".custom-dropdown")) {
-      filterOptions.style.display = "none";
+      options.style.display = "none";
     }
   });
 }
