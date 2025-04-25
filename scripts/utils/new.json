@@ -1,0 +1,26 @@
+[
+{"users":{
+    "canCreate": true,
+    "canRead": true,
+    "canUpdate": true,
+    "canDelete": true
+        }},
+{"roles":{
+    "canCreate": true,
+    "canRead": true,
+    "canUpdate": true,
+    "canDelete": true
+            }},
+{"permissions":{
+    "canCreate": true,
+    "canRead": true,
+    "canUpdate": true,
+    "canDelete": true
+            }},
+{"todos":{
+    "canCreate": true,
+    "canRead": true,
+    "canUpdate": true,
+    "canDelete": true
+             }}
+]

@@ -5,11 +5,13 @@ export const filterOptions = document.querySelector(".dropdown-options");
 export const columnHead = document.querySelector("#columnHead");
 export const allTodos = storage.todos.getData();
 export const heading = document.querySelector(".heading");
+const thead = document.querySelector("#thead");
+export const tbody = document.querySelector("#tbody");
 //
 export let currentTab = sidebar.children[0];
 export let cur = currentTab.dataset.name.toLowerCase();
 export let allTabs = storage[cur].getData();
-export let id = allTabs.length;
+let id = Math.max(...allTabs.map((e) => e.id));
 
 // handleCurrentTab: when clicked on a sidebar tab, current tab is handled and  data should be shown directly
 export function handleCurrentTab() {
@@ -46,7 +48,9 @@ export function renderFilter() {
     let innerHTML = `<label><input type="checkbox" value="${option}" checked/>${option.toUpperCase()}</label>`;
     filterOptions.innerHTML += innerHTML;
   }
+  filterOptions.innerHTML += `<label><input type="checkbox" value="action" checked/>ACTION</label>`;
 }
+
 //filterOnOff: when clicked on the "Select", the checklist buttons show or hide
 export function filterOnOff(options) {
   if (options.style.display == "block") {
@@ -60,11 +64,11 @@ export function filterOnOff(options) {
     }
   });
 }
+
 // renderData: when clicked on the "Filter", the data is shown as the table in the contentTable table
 export function renderData() {
   allTabs = storage[cur].getData();
-  const thead = document.querySelector("#thead");
-  const tbody = document.querySelector("#tbody");
+
   const allInputs = Array.from(filterOptions.children)
     .map((child) => child.children[0])
     .filter((child) => child.checked == true);
@@ -126,6 +130,12 @@ export function renderData() {
           for (let option of TodosOfUser) {
             selectTag.innerHTML += `<option>${option}</option>`;
           }
+        } else if (keyName == "action") {
+          cell.innerHTML = `<button style="margin:5px" id="editBtn${
+            i + 1
+          }" data-num="${i}">Edit</button><button id="delBtn${
+            i + 1
+          }" data-num="${i}">Delete</button>`;
         } else {
           cell.innerText = allTabs[i][keyName];
         }

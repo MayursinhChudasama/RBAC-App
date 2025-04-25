@@ -8,6 +8,7 @@ import {
   filterOptions,
   heading,
   currentTab,
+  tbody,
 } from "./render.js";
 
 // all variables with query selectors
@@ -22,16 +23,19 @@ const closeBtn = document.querySelector(".closeBtn");
 const AddEntryBtn = document.querySelector(".AddEntryBtn");
 
 // functions
+
 // defaultTab: on the page load, the user tab is selected as default and data is shown
 currentTab.style.backgroundColor = "yellow";
 currentTab.children[1].style.color = "#222";
 heading.innerHTML = currentTab.dataset.name.toUpperCase();
 let cur = currentTab.dataset.name.toLowerCase();
 let allTabs = storage[cur].getData();
-let id = allTabs.length;
+let id = Math.max(...allTabs.map((e) => e.id));
+
 //when page reloads data should be shown directly on the user page
 renderFilter();
 renderData();
+
 // add event Listener
 sidebar.addEventListener("click", handleCurrentTab);
 toggle.addEventListener("click", () => filterOnOff(filterOptions));
@@ -39,7 +43,6 @@ filterBtn.addEventListener("click", renderData);
 addBtn.addEventListener("click", OpenModal);
 closeBtn.addEventListener("click", closeModal);
 //
-
 function OpenModal() {
   document.onkeydown = function (event) {
     if (event.code == "Escape") {
@@ -56,35 +59,12 @@ function OpenModal() {
   modalAppend.innerHTML = "";
   for (let input of allInputs) {
     if (input.value == "role") {
-      const labelTag = document.createElement("label");
-      labelTag.innerText = input.value.toUpperCase() + ": ";
-      modalAppend.append(labelTag);
-      const selectTag = document.createElement("select");
-      selectTag.id = input.value;
-      selectTag.style.margin = "10px";
-      labelTag.append(selectTag);
-      const options = storage.roles.getData().map((e) => e.name);
-      for (let option of options) {
-        selectTag.innerHTML += `<option>${option}</option>`;
-      }
-      const brTag = document.createElement("br");
-      modalAppend.append(brTag);
+      labelAndSelect(input, storage.roles);
     } else if (input.value == "todos") {
-      const labelTag = document.createElement("label");
-      labelTag.innerText = input.value.toUpperCase() + ": ";
-      modalAppend.append(labelTag);
-      const selectTag = document.createElement("select");
-      selectTag.setAttribute("multiple", "");
-      selectTag.id = input.value;
-      selectTag.style.margin = "10px";
-      labelTag.append(selectTag);
-      const options = storage.todos.getData().map((e) => e.title);
-      for (let option of options) {
-        selectTag.innerHTML += `<option>${option}</option>`;
-      }
-      const brTag = document.createElement("br");
-      modalAppend.append(brTag);
-    } else if (input.value != "id") {
+      labelAndSelect(input, storage.todos);
+    } else if (input.value == "status") {
+      labelAndSelect(input);
+    } else if (input.value != "id" && input.value != "action") {
       modalAppend.innerHTML += `<label for="${
         input.value
       }">${input.value.toUpperCase()}:</label>
@@ -93,21 +73,46 @@ function OpenModal() {
     }" placeholder="Enter"/> <br />`;
     }
   }
-
-  //Add Entry
   AddEntryBtn.addEventListener("click", addEntry);
 }
+
+//
+function labelAndSelect(input, dest) {
+  const labelTag = document.createElement("label");
+  labelTag.innerText = input.value.toUpperCase() + ": ";
+  modalAppend.append(labelTag);
+  const selectTag = document.createElement("select");
+  selectTag.id = input.value;
+  selectTag.style.margin = "10px";
+  labelTag.append(selectTag);
+  let options;
+  if (dest == storage.todos) {
+    selectTag.setAttribute("multiple", "");
+    options = storage.todos.getData().map((e) => e.title);
+  } else if (dest == storage.roles) {
+    options = dest.getData().map((e) => e.name);
+  }
+  if (dest == storage.todos || dest == storage.roles) {
+    for (let option of options) {
+      selectTag.innerHTML += `<option>${option}</option>`;
+    }
+  } else {
+    selectTag.innerHTML = `<option>Complete</option><option>Pending</option>`;
+  }
+  const brTag = document.createElement("br");
+  modalAppend.append(brTag);
+}
+
+// Add Entry
 function addEntry() {
   cur = currentTab.dataset.name.toLowerCase();
   allTabs = storage[cur].getData();
-  id = allTabs.length;
+  id = Math.max(...allTabs.map((e) => e.id));
 
   if (true) {
-    //"check for permission"
+    //true will be replaced by "check for permission"
     id++;
     const newEntry = Object.assign({}, allTabs[0]);
-    console.log(newEntry);
-
     for (let key in newEntry) {
       if (key == "todos") {
         let ans = storage.todos
@@ -119,6 +124,12 @@ function addEntry() {
           )
           .map((e) => e.id);
         newEntry[key] = ans;
+      } else if (key == "status") {
+        if (document.querySelector("#" + key).value == "Complete") {
+          newEntry[key] = true;
+        } else if (document.querySelector("#" + key).value == "Pending") {
+          newEntry[key] = false;
+        }
       } else if (key != "id") {
         newEntry[key] = document.querySelector("#" + key).value || [];
       }
@@ -136,5 +147,30 @@ function closeModal() {
   sidebar.classList.remove("disabled");
   navbar.classList.remove("disabled");
 }
-//
+// Edit and Delete
+
+tbody.addEventListener("click", function (e) {
+  cur = currentTab.dataset.name.toLowerCase();
+  allTabs = storage[cur].getData();
+  const trgt = e.target;
+  const crTrgt = e.currentTarget;
+  // let crRow = crTrgt.children[trgt.dataset.num].children;
+  // console.log(trgt);
+  // for (let cell of crRow) {
+  //   console.log(cell.innerText);
+  // }
+
+  if (trgt.tagName == "BUTTON" && trgt.id.includes("edit")) {
+    console.log("edit clicked");
+  } else if (trgt.tagName == "BUTTON" && trgt.id.includes("del")) {
+    let ask = confirm("Are you sure");
+    let deletIndex = trgt.dataset.num;
+    if (ask) {
+      allTabs.splice(deletIndex, 1);
+      storage[cur].setData(allTabs);
+      renderData();
+    }
+  }
+});
+
 //addition: as the tab is changed the previous filter button is stored and shown same
