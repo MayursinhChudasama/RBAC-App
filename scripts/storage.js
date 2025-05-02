@@ -1,5 +1,4 @@
 // storage
-
 export const storage = {
   users: {
     getData: () => {

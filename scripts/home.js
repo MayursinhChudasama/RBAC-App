@@ -1,176 +1,38 @@
-import { storage } from "./storage.js";
+// fetch data from localStorage
+import { getData } from "./getData.js";
+getData();
+//
+// import { storage } from "./storage.js";
 import {
-  renderData,
-  renderFilter,
-  filterOnOff,
-  handleCurrentTab,
+  // heading,
   sidebar,
+  // currentTab,
+  // cur,
+  // allTabs,
+  handleCurrentTab,
+} from "../scripts/handleCurrentTab.js";
+sidebar.addEventListener("click", (event) => handleCurrentTab(event));
+//
+import {
+  filterBtn,
+  toggle,
   filterOptions,
-  heading,
-  currentTab,
-  tbody,
-} from "./render.js";
-
-// all variables with query selectors
-const navbar = document.querySelector(".top-navbar");
-const toggle = document.querySelector(".dropdown-toggle");
-const filterBtn = document.querySelector("#filterBtn");
-//add-button / Modal
-const modal = document.querySelector(".modal-overlay");
-const modalAppend = document.querySelector(".modalAppend");
-const addBtn = document.querySelector(".addBtn");
-const closeBtn = document.querySelector(".closeBtn");
-const AddEntryBtn = document.querySelector(".AddEntryBtn");
-
-// functions
-
-// defaultTab: on the page load, the user tab is selected as default and data is shown
-currentTab.style.backgroundColor = "yellow";
-currentTab.children[1].style.color = "#222";
-heading.innerHTML = currentTab.dataset.name.toUpperCase();
-let cur = currentTab.dataset.name.toLowerCase();
-let allTabs = storage[cur].getData();
-let id = Math.max(...allTabs.map((e) => e.id));
-
-//when page reloads data should be shown directly on the user page
-renderFilter();
-renderData();
-
-// add event Listener
-sidebar.addEventListener("click", handleCurrentTab);
+  // renderFilter,
+} from "./renderFilter.js";
+//
+import { filterOnOff } from "../scripts/filterOnOff.js";
 toggle.addEventListener("click", () => filterOnOff(filterOptions));
+//
+import { defaultCurrentTab } from "./defaultCurrentTab.js";
+defaultCurrentTab();
+
+//
+import { tbody, renderData } from "./renderData.js";
 filterBtn.addEventListener("click", renderData);
+//
+import { addBtn, closeBtn, OpenModal } from "./openModal.js";
 addBtn.addEventListener("click", OpenModal);
+import { closeModal } from "./closeModal.js";
+import { handleEditAndDelete } from "./handleEditAndDelete.js";
 closeBtn.addEventListener("click", closeModal);
-//
-function OpenModal() {
-  document.onkeydown = function (event) {
-    if (event.code == "Escape") {
-      closeModal();
-    }
-  };
-  modal.classList.add("open-modal");
-  sidebar.classList.add("disabled");
-  navbar.classList.add("disabled");
-  // inputs
-  const allInputs = Array.from(filterOptions.children).map(
-    (child) => child.children[0]
-  );
-  modalAppend.innerHTML = "";
-  for (let input of allInputs) {
-    if (input.value == "role") {
-      labelAndSelect(input, storage.roles);
-    } else if (input.value == "todos") {
-      labelAndSelect(input, storage.todos);
-    } else if (input.value == "status") {
-      labelAndSelect(input);
-    } else if (input.value != "id" && input.value != "action") {
-      modalAppend.innerHTML += `<label for="${
-        input.value
-      }">${input.value.toUpperCase()}:</label>
-    <input type="text" style="margin: 10px" id="${
-      input.value
-    }" placeholder="Enter"/> <br />`;
-    }
-  }
-  AddEntryBtn.addEventListener("click", addEntry);
-}
-
-//
-function labelAndSelect(input, dest) {
-  const labelTag = document.createElement("label");
-  labelTag.innerText = input.value.toUpperCase() + ": ";
-  modalAppend.append(labelTag);
-  const selectTag = document.createElement("select");
-  selectTag.id = input.value;
-  selectTag.style.margin = "10px";
-  labelTag.append(selectTag);
-  let options;
-  if (dest == storage.todos) {
-    selectTag.setAttribute("multiple", "");
-    options = storage.todos.getData().map((e) => e.title);
-  } else if (dest == storage.roles) {
-    options = dest.getData().map((e) => e.name);
-  }
-  if (dest == storage.todos || dest == storage.roles) {
-    for (let option of options) {
-      selectTag.innerHTML += `<option>${option}</option>`;
-    }
-  } else {
-    selectTag.innerHTML = `<option>Complete</option><option>Pending</option>`;
-  }
-  const brTag = document.createElement("br");
-  modalAppend.append(brTag);
-}
-
-// Add Entry
-function addEntry() {
-  cur = currentTab.dataset.name.toLowerCase();
-  allTabs = storage[cur].getData();
-  id = Math.max(...allTabs.map((e) => e.id));
-
-  if (true) {
-    //true will be replaced by "check for permission"
-    id++;
-    const newEntry = Object.assign({}, allTabs[0]);
-    for (let key in newEntry) {
-      if (key == "todos") {
-        let ans = storage.todos
-          .getData()
-          .filter((todo) =>
-            Array.from(document.querySelector("#" + key).selectedOptions)
-              .map((e) => e.innerText)
-              .includes(todo.title)
-          )
-          .map((e) => e.id);
-        newEntry[key] = ans;
-      } else if (key == "status") {
-        if (document.querySelector("#" + key).value == "Complete") {
-          newEntry[key] = true;
-        } else if (document.querySelector("#" + key).value == "Pending") {
-          newEntry[key] = false;
-        }
-      } else if (key != "id") {
-        newEntry[key] = document.querySelector("#" + key).value || [];
-      }
-    }
-    newEntry.id = id;
-    allTabs.push(newEntry);
-    storage[cur].setData(allTabs);
-    closeModal();
-    renderData();
-  }
-}
-
-function closeModal() {
-  modal.classList.remove("open-modal");
-  sidebar.classList.remove("disabled");
-  navbar.classList.remove("disabled");
-}
-// Edit and Delete
-
-tbody.addEventListener("click", function (e) {
-  cur = currentTab.dataset.name.toLowerCase();
-  allTabs = storage[cur].getData();
-  const trgt = e.target;
-  const crTrgt = e.currentTarget;
-  // let crRow = crTrgt.children[trgt.dataset.num].children;
-  // console.log(trgt);
-  // for (let cell of crRow) {
-  //   console.log(cell.innerText);
-  // }
-
-  if (trgt.tagName == "BUTTON" && trgt.id.includes("edit")) {
-    console.log("edit clicked");
-  } else if (trgt.tagName == "BUTTON" && trgt.id.includes("del")) {
-    let ask = confirm("Are you sure");
-    let deletIndex = trgt.dataset.num;
-    if (ask) {
-      allTabs.splice(deletIndex, 1);
-      storage[cur].setData(allTabs);
-      renderData();
-    }
-  }
-});
-
-//addition: as the tab is changed the previous filter button is stored and shown same
+tbody.addEventListener("click", (e) => handleEditAndDelete(e));

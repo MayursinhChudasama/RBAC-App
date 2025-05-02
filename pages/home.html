@@ -5,80 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <link rel="stylesheet" href="../styles/home.css" />
+    <link rel="stylesheet" href="../styles/headerComp.css" />
   </head>
   <body>
-    <!-- Hidden checkbox toggle -->
-    <input type="checkbox" id="menu-toggle" />
-
     <!-- Top Navbar -->
-    <header class="top-navbar">
-      <div class="nav-content">
-        <!-- Hamburger icon inside top navbar -->
-        <label class="hamburger" for="menu-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </label>
-        <nav class="top-links">
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">User</a>
-          <a href="../index.html">Log Out</a>
-        </nav>
-      </div>
-    </header>
-
+    <div id="headerComp"></div>
     <!-- Sidebar -->
-    <nav class="sidebar">
-      <a href="#" data-name="users">
-        <span class="icon" data-name="users">👨🏻‍💼</span>
-        <span class="label" data-name="users">Users</span>
-      </a>
-      <a href="#" data-name="roles">
-        <span class="icon" data-name="roles">📄</span>
-        <span class="label" data-name="roles">Roles</span>
-      </a>
-      <a href="#" data-name="permissions">
-        <span class="icon" data-name="permissions">⚙️</span>
-        <span class="label" data-name="permissions">Permissions</span>
-      </a>
-      <a href="#" data-name="todos">
-        <span class="icon" data-name="todos">✅</span>
-        <span class="label" data-name="todos">Todos</span>
-      </a>
-    </nav>
-
-    <main id="showContent">
-      <div class="box inline">
-        <button class="addBtn">Add</button>
-        <div class="modal-overlay">
-          <div class="modalContainer">
-            <div class="modalAppend"></div>
-            <button class="closeBtn">x</button>
-            <button class="AddEntryBtn">Add</button>
-          </div>
-        </div>
-        <h3 class="heading">Welcome!</h3>
-        <div class="custom-dropdown">
-          <div style="display: inline-flex; gap: 10px">
-            <div class="dropdown-toggle">Select</div>
-            <button id="filterBtn" style="width: 50px">Filter</button>
-          </div>
-          <div class="dropdown-options"></div>
-        </div>
-      </div>
-      <div class="box height">
-        <table id="contentTable">
-          <thead id="thead">
-            <tr id="columnHead"></tr>
-          </thead>
-          <tbody id="tbody">
-            <tr></tr>
-          </tbody>
-        </table>
-      </div>
+    <div id="sidebarComp"></div>
+    <!-- mainDiv -->
+    <main id="mainDiv">
+      <!-- headingComp -->
+      <div id="headingComp" class="box inline"></div>
+      <!-- showContentComp -->
+      <div id="showContentComp"></div>
     </main>
-
     <script type="module" src="../scripts/home.js"></script>
   </body>
 </html>
