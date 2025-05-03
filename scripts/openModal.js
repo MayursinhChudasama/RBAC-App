@@ -4,13 +4,17 @@ import { filterOptions } from "./renderFilter.js";
 import { storage } from "./storage.js";
 import { closeModal } from "./closeModal.js";
 import { addEntry } from "./addEntry.js";
-
+import { fetchComponent } from "./fetchComponent.js";
 // modal
-import { modalComp } from "../components/modal.js";
-modalComp(document.querySelector("#modalComp"));
+await fetchComponent(
+  "../components/modal.html",
+  document.querySelector("#modalComp")
+);
 // header
-import { headerComp } from "../components/header.js";
-headerComp(document.querySelector("#headerComp"));
+await fetchComponent(
+  "../components/header.html",
+  document.querySelector("#headerComp")
+);
 //
 const btn = document.getElementById("menu-toggle");
 const mainDiv = document.querySelector("#mainDiv");

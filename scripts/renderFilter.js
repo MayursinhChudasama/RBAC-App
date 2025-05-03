@@ -1,12 +1,17 @@
 import { storage } from "./storage.js";
 import { cur } from "./handleCurrentTab.js";
+import { fetchComponent } from "./fetchComponent.js";
 
-// heading
-import { headingComp } from "../components/heading.js";
-headingComp(document.querySelector("#headingComp"));
-// filter
-import { filterComp } from "../components/filter.js";
-filterComp(document.querySelector("#filterComp"));
+// heading Comp
+await fetchComponent(
+  "../components/heading.html",
+  document.querySelector("#headingComp")
+);
+// filter Comp
+await fetchComponent(
+  "../components/filter.html",
+  document.querySelector("#filterComp")
+);
 //
 let allTabs;
 //

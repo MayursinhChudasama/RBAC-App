@@ -1,8 +1,0 @@
-export function headingComp(element) {
-  element.innerHTML = `
-  <button class="addBtn">Add</button>
-  <div id="modalComp" class="modal-overlay"></div>
-  <h3 class="heading">Welcome!</h3>
-  <div id="filterComp" class="custom-dropdown"></div>
-`;
-}

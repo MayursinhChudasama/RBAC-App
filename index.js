@@ -1,10 +1,11 @@
 import { getFromJSON, storage } from "./scripts/storage.js";
-import { loginComp } from "./components/login.js";
+import { fetchComponent } from "./fetchComponent.js";
 
-//
-const loginContainer = document.querySelector("#container");
-loginContainer.innerHTML = loginComp;
-
+// login
+await fetchComponent(
+  "../components/login.html",
+  document.querySelector("#container")
+);
 //
 const allUsers = storage.users.getData();
 

@@ -1,7 +1,10 @@
+import { fetchComponent } from "./fetchComponent.js";
 // renderData: when clicked on the "Filter", the data is shown as the table in the contentTable table
 // showContent
-import { showContentComp } from "../components/showContent.js";
-showContentComp(document.querySelector("#showContentComp"));
+await fetchComponent(
+  "../components/showContent.html",
+  document.querySelector("#showContentComp")
+);
 //
 import { cur } from "./handleCurrentTab.js";
 import { storage } from "./storage.js";

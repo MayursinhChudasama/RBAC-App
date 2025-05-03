@@ -1,10 +1,13 @@
 import { storage } from "./storage.js";
 import { renderFilter } from "./renderFilter.js";
 import { renderData } from "./renderData.js";
+import { fetchComponent } from "./fetchComponent.js";
 
 // sidebar
-import { sidebarComp } from "../components/sidebar.js";
-sidebarComp(document.querySelector("#sidebarComp"));
+await fetchComponent(
+  "../components/sidebar.html",
+  document.querySelector("#sidebarComp")
+);
 //
 export const heading = document.querySelector(".heading");
 export const sidebar = document.querySelector(".sidebar");
