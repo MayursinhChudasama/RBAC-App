@@ -12,7 +12,7 @@ await fetchComponent(
 export const heading = document.querySelector(".heading");
 export const sidebar = document.querySelector(".sidebar");
 //
-export let currentTab = sidebar.children[0];
+export let currentTab = sidebar.children[2];
 export let cur = currentTab.dataset.name.toLowerCase();
 export let allTabs = storage[cur].getData();
 export let id;
@@ -34,6 +34,8 @@ export function handleCurrentTab(event) {
   cur = currentTab.dataset.name.toLowerCase();
   allTabs = storage[cur].getData();
   id = Math.max(...allTabs.map((e) => e.id));
+  //
+  history.replaceState({}, "", cur);
   //
   renderFilter();
   renderData();

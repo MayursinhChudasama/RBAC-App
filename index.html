@@ -9,5 +9,17 @@
   <body>
     <div id="container"></div>
     <script type="module" src="index.js"></script>
+    <script>
+      class User {
+        constructor(name) {
+          this.name = name;
+        }
+      }
+
+      const user1 = new User("mayur");
+      const name = {};
+
+      console.log({ user1, name });
+    </script>
   </body>
 </html>

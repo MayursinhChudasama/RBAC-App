@@ -23,7 +23,7 @@ export function renderFilter() {
   allTabs = storage[cur].getData();
   let allColumnNames;
   if (cur == "permissions") {
-    allColumnNames = allTabs.map((key) => Object.keys(key)).flat();
+    allColumnNames = new Set(allTabs.map((key) => key.type));
   } else {
     allColumnNames = Object.keys(allTabs[0]);
   }
@@ -32,5 +32,7 @@ export function renderFilter() {
     let innerHTML = `<label><input type="checkbox" value="${option}" checked/>${option.toUpperCase()}</label>`;
     filterOptions.innerHTML += innerHTML;
   }
-  filterOptions.innerHTML += `<label><input type="checkbox" value="action" checked/>ACTION</label>`;
+  if (cur != "permissions") {
+    filterOptions.innerHTML += `<label><input type="checkbox" value="action" checked/>ACTION</label>`;
+  }
 }

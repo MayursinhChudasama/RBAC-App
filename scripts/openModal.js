@@ -53,11 +53,11 @@ export function OpenModal() {
   modalAppend.innerHTML = "";
   for (let input of allInputs) {
     if (input.value == "role") {
-      labelAndSelect(input, storage.roles);
+      labelAndSelect(input, storage.roles, modalAppend);
     } else if (input.value == "todos") {
-      labelAndSelect(input, storage.todos);
+      labelAndSelect(input, storage.todos, modalAppend);
     } else if (input.value == "status") {
-      labelAndSelect(input);
+      labelAndSelect(input, "", modalAppend);
     } else if (input.value != "id" && input.value != "action") {
       modalAppend.innerHTML += `<label for="${
         input.value

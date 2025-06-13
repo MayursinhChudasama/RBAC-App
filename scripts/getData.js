@@ -1,10 +1,17 @@
 import { storage, getFromJSON } from "./storage.js";
 //
+export const allUsers = storage.users.getData();
 export const allRoles = storage.roles.getData();
 export const allPermissions = storage.permissions.getData();
 export const allTodos = storage.todos.getData();
 //
 export function getData() {
+  getFromJSON("../scripts/json/users.json").then((data) => {
+    if (allUsers.length == 0) {
+      storage.users.setData(data);
+    }
+  });
+  //
   getFromJSON("../scripts/json/roles.json").then((data) => {
     if (allRoles.length == 0) {
       storage.roles.setData(data);

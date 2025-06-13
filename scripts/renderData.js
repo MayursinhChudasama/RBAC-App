@@ -12,7 +12,8 @@ import { filterOptions } from "./renderFilter.js";
 //
 export const columnHead = document.querySelector("#columnHead");
 export const tbody = document.querySelector("#tbody");
-const allTodos = storage.todos.getData();
+export const allTodos = storage.todos.getData();
+export const allRoles = storage.roles.getData();
 //
 let allTabs;
 export function renderData() {
@@ -25,6 +26,12 @@ export function renderData() {
     // thead.innerHTML = "";
     columnHead.innerHTML = "";
     tbody.innerHTML = "";
+    console.log("allInputs", allInputs);
+    for (let input of allInputs) {
+      columnHead.innerHTML += `<th>${input.value}</th>`;
+    }
+    const row = document.createElement("tr");
+    tbody.append(row);
   } else {
     columnHead.innerHTML = "";
 
@@ -51,6 +58,13 @@ export function renderData() {
           cell.append(selectTag);
           for (let option of TodosOfUser) {
             selectTag.innerHTML += `<option>${option}</option>`;
+          }
+        } else if (keyName == "role") {
+          for (let role of allRoles) {
+            if (allTabs[i][keyName] == role.id) {
+              cell.innerText = role.name;
+              console.log("render Data works");
+            }
           }
         } else if (keyName == "action") {
           cell.innerHTML = `<button style="margin:5px" id="editBtn${

@@ -1,9 +1,8 @@
-import { modalAppend } from "./openModal.js";
 import { storage } from "./storage.js";
-export function labelAndSelect(input, dest) {
+export function labelAndSelect(input, dest, appendTag) {
   const labelTag = document.createElement("label");
   labelTag.innerText = input.value.toUpperCase() + ": ";
-  modalAppend.append(labelTag);
+  appendTag.append(labelTag);
   const selectTag = document.createElement("select");
   selectTag.id = input.value;
   selectTag.style.margin = "10px";
@@ -23,5 +22,5 @@ export function labelAndSelect(input, dest) {
     selectTag.innerHTML = `<option>Complete</option><option>Pending</option>`;
   }
   const brTag = document.createElement("br");
-  modalAppend.append(brTag);
+  appendTag.append(brTag);
 }

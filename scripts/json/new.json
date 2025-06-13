@@ -4,20 +4,20 @@
     "canRead": true,
     "canUpdate": true,
     "canDelete": true
-        }},
-{"roles":{
+        },
+"roles":{
     "canCreate": true,
     "canRead": true,
     "canUpdate": true,
     "canDelete": true
-            }},
-{"permissions":{
+            },
+"permissions":{
     "canCreate": true,
     "canRead": true,
     "canUpdate": true,
     "canDelete": true
-            }},
-{"todos":{
+            },
+"todos":{
     "canCreate": true,
     "canRead": true,
     "canUpdate": true,

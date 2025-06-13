@@ -1,7 +1,7 @@
 import { currentTab } from "./handleCurrentTab.js";
 import { storage } from "./storage.js";
 import { closeModal } from "./closeModal.js";
-import { renderData } from "./renderData.js";
+import { allRoles, renderData } from "./renderData.js";
 
 let cur = currentTab.dataset.name.toLowerCase();
 let allTabs = storage[cur].getData();
@@ -20,6 +20,8 @@ export function addEntry() {
     //true will be replaced by "check for permission"
     id++;
     const newEntry = Object.assign({}, allTabs[0]);
+    console.log("newEntry", newEntry);
+
     for (let key in newEntry) {
       if (key == "todos") {
         let ans = storage.todos
@@ -37,6 +39,15 @@ export function addEntry() {
         } else if (document.querySelector("#" + key).value == "Pending") {
           newEntry[key] = false;
         }
+      } else if (key == "role") {
+        let ans = allRoles
+          .filter(
+            (role) => document.querySelector("#" + key).value == role.name
+          )
+          .map((role) => role.id);
+        console.log(ans[0]);
+
+        newEntry[key] = ans[0];
       } else if (key != "id") {
         newEntry[key] = document.querySelector("#" + key).value || "--";
       }
