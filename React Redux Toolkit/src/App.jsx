@@ -1,9 +1,15 @@
+import Content from "./components/Content";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+
 function App() {
   return (
     <>
-      <p className='read-the-docs'>
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header />
+      <div className='flex'>
+        <Sidebar />
+        <Content />
+      </div>
     </>
   );
 }
