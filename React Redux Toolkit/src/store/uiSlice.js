@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const uiInitialState = {
   isNavOpen: false,
   isDropdownOpen: false,
+  currentTab: "Users",
 };
 
 export const uiSlice = createSlice({
@@ -20,6 +21,9 @@ export const uiSlice = createSlice({
     },
     closeDropDown(state) {
       state.isDropdownOpen = false;
+    },
+    setCurrentTab(state, action) {
+      state.currentTab = action.payload;
     },
   },
 });

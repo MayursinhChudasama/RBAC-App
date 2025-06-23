@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { uiSlice } from "../store/uiSlice";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -55,31 +56,31 @@ export default function Header() {
           </button>
 
           <div className='flex items-center ml-auto space-x-10'>
-            <a
-              href='#'
+            <Link
+              to='/home'
               className='text-xl font-medium text-white transition-all duration-200 hover:text-yellow-200 focus:text-yellow-200'>
               Home
-            </a>
+            </Link>
 
-            <a
-              href='#'
+            <Link
+              to='/about'
               className='text-xl font-medium text-white transition-all duration-200 hover:text-yellow-200 focus:text-yellow-200'>
               About
-            </a>
+            </Link>
 
-            <a
-              href='#'
+            <Link
+              to='/user'
               className='text-xl font-medium text-white transition-all duration-200 hover:text-yellow-200 focus:text-yellow-200'>
               User
-            </a>
+            </Link>
           </div>
 
-          <a
-            href='#'
+          <Link
+            to='/'
             className='items-center justify-center px-4 py-3 ml-10 text-xl font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:bg-blue-700'
             role='button'>
             Log-out
-          </a>
+          </Link>
         </nav>
       </div>
     </header>
