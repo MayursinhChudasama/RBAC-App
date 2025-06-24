@@ -12,7 +12,7 @@ export const store = configureStore({
   reducer: {
     dataApi: dataApi.reducer,
     ui: uiSlice.reducer,
-    // data: dataSlice.reducer,
+    data: dataSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(dataApi.middleware),

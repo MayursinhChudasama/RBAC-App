@@ -34,6 +34,7 @@ const router = createBrowserRouter([
       {
         path: ":page",
         element: <Content />,
+
         children: [
           {
             index: true,

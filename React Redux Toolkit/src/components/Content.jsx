@@ -8,11 +8,11 @@ import { useDispatch } from "react-redux";
 
 export default function Content() {
   const params = useParams();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const { data, isLoading, isError, error } = useFetchDataQuery();
   const currentTab = params.page;
-  // const { setData } = dataSlice.actions;
+  const { setData } = dataSlice.actions;
 
   // useEffect(() => {
   //   dispatch(setData(data));

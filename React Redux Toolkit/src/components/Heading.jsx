@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Dropdown from "./Dropdown";
+import Dropdown from "./Dropdown Selectable";
 import { Link, useParams } from "react-router-dom";
 
 export default function Heading({ heading }) {

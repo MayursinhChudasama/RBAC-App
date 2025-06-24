@@ -7,10 +7,10 @@ import { useFetchDataQuery } from "./dataApiSlice";
 
 export const dataSlice = createSlice({
   name: "data",
-  initialState: {},
+  initialState: [],
   reducers: {
     setData(state, action) {
-      state.data = action.payload;
+      return action.payload;
       //   state[action.payload.key] = action.payload.data;
     },
   },
