@@ -34,7 +34,6 @@ const router = createBrowserRouter([
       {
         path: ":page",
         element: <Content />,
-
         children: [
           {
             index: true,
@@ -42,6 +41,10 @@ const router = createBrowserRouter([
           },
           {
             path: "new",
+            element: <NewEntry />,
+          },
+          {
+            path: "edit/:id",
             element: <NewEntry />,
           },
         ],

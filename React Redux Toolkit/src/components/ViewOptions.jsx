@@ -12,9 +12,9 @@ export default function Dropdown({ itemList }) {
     };
     document.addEventListener("mousedown", handleClickOutside);
 
-    // return () => {
-    //   document.removeEventListener("mousedown", handleClickOutside);
-    // };
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   return (

@@ -3,32 +3,36 @@ import { useFetchDataQuery } from "../store/dataApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { dataSlice } from "../store/dataSlice";
-import Dropdown from "./Dropdown";
+import Dropdown from "./ViewOptions";
+import renderKeyList from "../utils/renderKeyList";
+import Buttons from "./Buttons";
 
 export default function ContentTable() {
   const { data, isLoading, isError, error } = useFetchDataQuery();
-  const params = useParams();
-  const columnNames = useSelector((store) => store.data);
-  const dispatch = useDispatch();
 
-  const { setData } = dataSlice.actions;
-  const currentTab = params.page.toLowerCase();
-  let listItems =
-    columnNames.length > 0 ? columnNames : Object.keys(data[currentTab][0]);
+  const currentTab = useParams().page.toLowerCase();
+  // const keysList = renderKeyList(currentTab);
+  const keysListRendered = renderKeyList(currentTab);
 
-  useEffect(() => {
-    dispatch(setData(Object.keys(data[currentTab][0])));
-  }, [currentTab]);
-  // console.log(data[currentTab]);
-  console.log("all todos", data.todos);
-  console.log(data.todos.filter((item) => item.id == 3));
+  const keysListUpdated = useSelector((store) => store.data);
+  const keysListUpdatedNotFrozen = JSON.parse(JSON.stringify(keysListUpdated));
+
+  const keysList =
+    keysListUpdatedNotFrozen.length > 0
+      ? keysListUpdatedNotFrozen
+      : keysListRendered;
+  if (!keysList.includes("Action")) {
+    keysList.push("Action");
+  }
+
+  const keys = keysList.map((item) => item.toLowerCase());
 
   return (
     <div>
       <table className='text-center border-collapse table-auto'>
         <thead>
           <tr>
-            {listItems.map((item, i) => {
+            {keysList.map((item, i) => {
               return (
                 <th
                   key={item}
@@ -45,7 +49,7 @@ export default function ContentTable() {
               <tr
                 key={item.id}
                 className='m-1 p-1'>
-                {listItems.map((keyName, j) => {
+                {keys.map((keyName, j) => {
                   let content = data[currentTab][i][keyName];
                   if (keyName === "todos") {
                     let userTodosId = data[currentTab][i][keyName];
@@ -64,6 +68,14 @@ export default function ContentTable() {
                     )?.name;
 
                     content = userRoleName;
+                  } else if (keyName === "status") {
+                    if (content == true) {
+                      content = "Completed";
+                    } else {
+                      content = "Pending";
+                    }
+                  } else if (keyName === "action") {
+                    content = <Buttons id={data[currentTab][i].id} />;
                   }
                   return (
                     <td
