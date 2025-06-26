@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
-import { useFetchDataQuery } from "../store/dataApiSlice";
+import { useFetchDataQuery, usePostDataMutation } from "../store/dataApiSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRef } from "react";
+import Input from "./Input";
 
 export default function EntryForm({ entry }) {
+  const [postData, { isLoading, isSuccess, error }] = usePostDataMutation();
   const { data } = useFetchDataQuery();
   const navigate = useNavigate();
   const currentTab = useParams().page.toLowerCase();
@@ -11,31 +13,86 @@ export default function EntryForm({ entry }) {
   const inputRefs = useRef([]);
 
   const keys = Object.keys(data[currentTab][0]);
-  function handleAdd() {
-    console.log("add clicked");
-    let list = new Array(inputRefs)[0];
 
-    let updatedEntry = {};
+  async function handleAdd(event) {
+    event.preventDefault();
+    console.log("add clicked");
+
+    // let list = new Array(inputRefs)[0];
+    let list = inputRefs.current;
+    let updatedEntry = {
+      id: Date.now(),
+    };
+
     for (const input in list) {
-      if (list[input].name) {
+      if (list[input].name && list[input].name === "todos") {
+        const selectedTodos = Array.from(list[input].selectedOptions, (item) =>
+          Number(item.value)
+        );
+
+        updatedEntry = {
+          ...updatedEntry,
+          [list[input].name]: selectedTodos || [],
+        };
+        //
+      } else if (list[input].name && list[input].name === "permission") {
+        const selectedPermissions = Array.from(
+          list[input].selectedOptions,
+          (item) => Number(item.value)
+        );
+
+        updatedEntry = {
+          ...updatedEntry,
+          [list[input].name]: selectedPermissions,
+        };
+        //
+      } else if (list[input].name && list[input].name === "role") {
+        updatedEntry = {
+          ...updatedEntry,
+          [list[input].name]: Number(list[input].value),
+        };
+        //
+      } else if (list[input].name) {
         updatedEntry = {
           ...updatedEntry,
           [list[input].name]: list[input].value,
         };
       }
     }
-    console.log(updatedEntry);
+    let updatedData = JSON.parse(JSON.stringify(data));
+    if (entry) {
+      const index = data[currentTab].findIndex((item) => entry.id == item.id);
+      console.log("clicked item", data[currentTab][index]);
+
+      updatedData[currentTab][index] = updatedEntry;
+    } else {
+      updatedData = {
+        ...data,
+        [currentTab]: [...data[currentTab], updatedEntry],
+      };
+    }
+
+    try {
+      await postData(updatedData).unwrap();
+      navigate("..");
+    } catch (err) {
+      console.log("Failed to create user:", err);
+    }
+    // console.log("updatedEntry", updatedEntry);
   }
 
   return (
-    <form className='flex flex-col justify-center'>
+    <form
+      onSubmit={handleAdd}
+      className='flex flex-col justify-center'>
       {keys &&
-        keys?.map((key, index) => {
+        keys.map((key, index) => {
+          // {key,index,type,entry,ref }
           if (key !== "id") {
             return (
               <div
                 key={key}
-                className='flex text-[#F5F5F5] p-3 justify-end'>
+                className='flex text-[#F5F5F5] p-3 justify-between'>
                 <div className=''>
                   <label
                     key={key}
@@ -44,24 +101,20 @@ export default function EntryForm({ entry }) {
                   </label>
                 </div>
                 <div>
-                  <input
-                    name={key}
-                    id={`key-${index}`}
-                    type='text'
-                    defaultValue={entry ? entry[key] : ""}
-                    ref={(el) => (inputRefs[index] = el)}
-                    className='bg-gray-50 text-[#2F2F2F] border-1 border-[#2F2F2F] focus:border-[#3B82F6] focus:outline-none focus:ring-2 focus:ring-[#3B82F6]/50 p-1 mx-2'
+                  <Input
+                    obj={{
+                      key,
+                      index,
+                      entry,
+                      ref: (el) => (inputRefs.current[index] = el),
+                    }}
                   />
                 </div>
               </div>
             );
           }
         })}
-      <button
-        type='button'
-        onClick={handleAdd}>
-        Add
-      </button>
+      <button>{entry ? "Edit" : "Add"}</button>
       <button
         type='button'
         onClick={() => {

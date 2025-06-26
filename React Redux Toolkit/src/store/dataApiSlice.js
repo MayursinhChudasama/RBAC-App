@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
-
 export const dataApi = createApi({
   reducerPath: "dataApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/" }),
   endpoints: (builder) => ({
     fetchData: builder.query({
       query: () => "data",
+      providesTags: ["data"],
     }),
-    postUsers: builder.mutation({
+    postData: builder.mutation({
       query: (newUser) => ({
-        url: `users`,
-        method: "POST",
-        body: newUser,
+        url: "data",
+        method: "PUT",
+        body: JSON.stringify(newUser),
       }),
+      invalidatesTags: ["data"],
     }),
   }),
   // refetchOnFocus: true,
@@ -23,4 +23,4 @@ export const dataApi = createApi({
   // refetchOnMountOrArgChange: true,
   // tagTypes: ["Data"],
 });
-export const { useFetchDataQuery } = dataApi;
+export const { useFetchDataQuery, usePostDataMutation } = dataApi;
