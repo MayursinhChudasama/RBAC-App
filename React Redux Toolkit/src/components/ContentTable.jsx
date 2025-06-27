@@ -14,19 +14,17 @@ export default function ContentTable() {
   // const keysList = renderKeyList(currentTab);
   const keysListRendered = renderKeyList(currentTab);
 
-  const keysListUpdated = useSelector((store) => store.data[currentTab]);
+  const keysListUpdated = useSelector((store) => store.data);
 
-  // let keysListUpdatedNotFrozen = JSON.parse(JSON.stringify(keysListUpdated));
+  let keysListUpdatedNotFrozen = JSON.parse(JSON.stringify(keysListUpdated));
 
-  // let keysList = keysListUpdatedNotFrozen[currentTab];
-  let keysList = keysListUpdated;
-  console.log(keysList);
-  // keysListUpdatedNotFrozen.length > 0
-  //   ? keysListUpdatedNotFrozen
-  //   : keysListRendered;
+  let keysList =
+    keysListUpdatedNotFrozen.length > 0
+      ? keysListUpdatedNotFrozen
+      : keysListRendered;
 
   // console.log("keysListUpdatedNotFrozen", keysListUpdatedNotFrozen);
-  console.log("keysListRendered", keysListRendered);
+  // console.log("keysListRendered", keysListRendered);
 
   if (!keysList.includes("Action")) {
     keysList.push("Action");

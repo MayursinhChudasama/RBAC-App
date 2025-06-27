@@ -10,7 +10,7 @@ const dataInitialState = {
 
 export const dataSlice = createSlice({
   name: "data",
-  initialState: dataInitialState,
+  initialState: [],
   reducers: {
     setData(state, action) {
       return action.payload;
