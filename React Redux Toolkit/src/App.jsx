@@ -11,7 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import TypePage from "./pages/TypePage";
 import NewEntry from "./pages/NewEntry";
-import ContentTable from "./components/ContentTable";
+
 
 const router = createBrowserRouter([
   {
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <ContentTable />,
+            element: <TypePage />,
           },
           {
             path: "new",

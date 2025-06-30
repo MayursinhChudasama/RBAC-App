@@ -21,7 +21,7 @@ export default function EntryForm({ entry }) {
     // let list = new Array(inputRefs)[0];
     let list = inputRefs.current;
     let updatedEntry = {
-      id: entry.id,
+      id: entry?.id,
     };
     if (!entry) {
       updatedEntry.id = Date.now();
@@ -90,7 +90,6 @@ export default function EntryForm({ entry }) {
       className='flex flex-col justify-center'>
       {keys &&
         keys.map((key, index) => {
-          // {key,index,type,entry,ref }
           if (key !== "id") {
             return (
               <div

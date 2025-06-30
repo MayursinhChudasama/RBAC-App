@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
-import Login from "../components/Login";
 import { useFetchDataQuery } from "../store/dataApiSlice";
 import { useNavigate } from "react-router-dom";
+
+import Login from "../components/Login";
 export default function LoginPage() {
   // localStorage.removeItem("user");
   const [user, setUser] = useState(false);

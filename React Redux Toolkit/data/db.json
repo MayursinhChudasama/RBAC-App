@@ -119,82 +119,82 @@
       {
         "id": 1,
         "name": "create",
-        "type": "user"
+        "type": "users"
       },
       {
         "id": 2,
         "name": "read",
-        "type": "user"
+        "type": "users"
       },
       {
         "id": 3,
         "name": "edit",
-        "type": "user"
+        "type": "users"
       },
       {
         "id": 4,
         "name": "delete",
-        "type": "user"
+        "type": "users"
       },
       {
         "id": 5,
         "name": "create",
-        "type": "role"
+        "type": "roles"
       },
       {
         "id": 6,
         "name": "read",
-        "type": "role"
+        "type": "roles"
       },
       {
         "id": 7,
         "name": "edit",
-        "type": "role"
+        "type": "roles"
       },
       {
         "id": 8,
         "name": "delete",
-        "type": "role"
+        "type": "roles"
       },
       {
         "id": 9,
         "name": "create",
-        "type": "permission"
+        "type": "permissions"
       },
       {
         "id": 10,
         "name": "read",
-        "type": "permission"
+        "type": "permissions"
       },
       {
         "id": 11,
         "name": "edit",
-        "type": "permission"
+        "type": "permissions"
       },
       {
         "id": 12,
         "name": "delete",
-        "type": "permission"
+        "type": "permissions"
       },
       {
         "id": 13,
         "name": "create",
-        "type": "todo"
+        "type": "todos"
       },
       {
         "id": 14,
         "name": "read",
-        "type": "todo"
+        "type": "todos"
       },
       {
         "id": 15,
         "name": "edit",
-        "type": "todo"
+        "type": "todos"
       },
       {
         "id": 16,
         "name": "delete",
-        "type": "todo"
+        "type": "todos"
       }
     ],
     "todos": [
@@ -247,6 +247,11 @@
         "id": 10,
         "title": "Meditate for 10 minutes",
         "status": false
+      },
+      {
+        "id": 1751290180736,
+        "title": "abc",
+        "status": "Completed"
       }
     ]
   }

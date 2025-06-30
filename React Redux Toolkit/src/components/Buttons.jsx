@@ -1,10 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import { useFetchDataQuery, usePostDataMutation } from "../store/dataApiSlice";
+import { hasPermission } from "../utils/hasPermission";
 
 export default function Buttons({ id }) {
   const [postData, { isLoading, isSuccess, error }] = usePostDataMutation();
   const { data } = useFetchDataQuery();
-
+  const userPermissions = hasPermission();
   const currentTab = useParams().page;
   const currentTabLower = currentTab.toLowerCase();
   async function handleDelete() {
@@ -36,7 +37,13 @@ export default function Buttons({ id }) {
       </Link>
       <button
         className='hover:cursor-pointer hover:text-red-300'
-        onClick={handleDelete}>
+        onClick={() => {
+          if (userPermissions[currentTabLower].delete) {
+            handleDelete();
+          } else {
+            window.alert("You do not have permission!");
+          }
+        }}>
         Delete
       </button>
     </div>
