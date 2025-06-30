@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Login({ obj }) {
   const { emailRef, passwordRef, handlePassword, handleEmail, user, err } = obj;
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className='flex flex-col items-center justify-center h-screen'>
       <div className='p-1 h-96 w-4xl bg-[#0e0e0e] rounded-3xl flex'>
@@ -27,22 +29,39 @@ export default function Login({ obj }) {
               />
             )}
             {user && (
-              <input
-                type='password'
-                ref={passwordRef}
-                // onChange={handlePassword}
-                defaultValue={passwordRef.current?.value || ""}
-                placeholder='Enter your password:'
-                className='border-1 rounded border-[#8e918f] my-5 p-5 h-11 w-80 text-[#8e918f] focus:text-[#e3e3e3] focus:border-[#a8c7fa] focus:outline-none'
-              />
+              <>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  ref={passwordRef}
+                  // onChange={handlePassword}
+                  defaultValue={passwordRef.current?.value || ""}
+                  placeholder='Enter your password:'
+                  className='border-1 rounded border-[#8e918f] my-5 p-5 h-11 w-80 text-[#8e918f] focus:text-[#e3e3e3] focus:border-[#a8c7fa] focus:outline-none'
+                />
+                <div className='mt-2 flex items-center gap-2'>
+                  <input
+                    id='showPassword'
+                    type='checkbox'
+                    checked={showPassword}
+                    onChange={(e) => setShowPassword(e.target.checked)}
+                    className='accent-blue-500'
+                  />
+                  <label
+                    htmlFor='showPassword'
+                    className='text-sm text-gray-600'>
+                    Show Password
+                  </label>
+                </div>
+              </>
             )}
             {err && (
               <p className='text-[#fabba8] hover:cursor-pointer py-3 hover:underline'>
                 Your {user.email ? "password" : "email"} is wrong.
               </p>
             )}
+
             <p className='text-[#a8c7fa] hover:cursor-pointer py-3 hover:underline'>
-              Forgot email?
+              Forgot {user.email ? "password" : "email"} ?
             </p>
           </div>
           <div className='flex gap-3 px-20 py-15'>

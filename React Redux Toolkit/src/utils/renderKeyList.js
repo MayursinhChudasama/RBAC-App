@@ -1,5 +1,4 @@
-import { useParams } from "react-router-dom";
-import { useFetchDataQuery } from "../store/dataApiSlice";
+
 
 export default function renderKeyList(currentTab) {
   let finalKeysList = [];

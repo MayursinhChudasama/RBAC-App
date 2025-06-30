@@ -21,8 +21,11 @@ export default function EntryForm({ entry }) {
     // let list = new Array(inputRefs)[0];
     let list = inputRefs.current;
     let updatedEntry = {
-      id: Date.now(),
+      id: entry.id,
     };
+    if (!entry) {
+      updatedEntry.id = Date.now();
+    }
 
     for (const input in list) {
       if (list[input].name && list[input].name === "todos") {

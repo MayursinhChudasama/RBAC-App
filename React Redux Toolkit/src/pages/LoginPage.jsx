@@ -3,7 +3,7 @@ import Login from "../components/Login";
 import { useFetchDataQuery } from "../store/dataApiSlice";
 import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
-  localStorage.removeItem("user");
+  // localStorage.removeItem("user");
   const [user, setUser] = useState(false);
   const [err, setErr] = useState(false);
   const emailRef = useRef();

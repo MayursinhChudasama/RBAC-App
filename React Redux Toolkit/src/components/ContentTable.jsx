@@ -6,9 +6,13 @@ import { dataSlice } from "../store/dataSlice";
 import Dropdown from "./ViewOptions";
 import renderKeyList from "../utils/renderKeyList";
 import Buttons from "./Buttons";
+import { hasPermission } from "../utils/hasPermission";
 
 export default function ContentTable() {
+  const permission = hasPermission();
+
   const { data, isLoading, isError, error } = useFetchDataQuery();
+  console.log("data", data);
 
   const currentTab = useParams().page.toLowerCase();
   // const keysList = renderKeyList(currentTab);
