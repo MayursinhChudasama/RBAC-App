@@ -13,10 +13,7 @@ export default function LoginPage() {
 
   const { data, isLoading, isError, error } = useFetchDataQuery();
   //
-  function handleChange() {
-    console.log(emailRef.current.value);
-  }
-  //
+
   function handleEmail() {
     console.log(emailRef.current.value);
     const inputEmail = emailRef.current.value;

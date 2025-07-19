@@ -1,0 +1,207 @@
+import { Data } from "../models/dataModel";
+
+export const initialData: Data = {
+  users: [
+    {
+      id: 1,
+      name: "Alice",
+      email: "alice@example.com",
+      password: "alice@123",
+      role: 1,
+      todos: [6],
+    },
+    {
+      id: 2,
+      name: "Bob",
+      email: "bob@example.com",
+      password: "bob@123",
+      role: 2,
+      todos: [1, 3, 5],
+    },
+    {
+      id: 3,
+      name: "Charlie",
+      email: "charlie@example.com",
+      password: "charlie@123",
+      role: 3,
+      todos: [2, 4, 6],
+    },
+    {
+      id: 4,
+      name: "David",
+      email: "david@example.com",
+      password: "david@123",
+      role: 4,
+      todos: [7, 8, 9, 10],
+    },
+    {
+      id: 1751285230017,
+      name: "Mayur",
+      email: "mayur@raa.com",
+      password: "mayur@123",
+      role: 1,
+      todos: [1, 9, 10],
+    },
+  ],
+  roles: [
+    {
+      id: 1,
+      name: "Super Admin",
+      permission: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+    },
+    {
+      id: 2,
+      name: "Admin",
+      permission: [1, 2, 3, 4],
+    },
+    {
+      id: 3,
+      name: "User",
+      permission: [2, 6, 13, 14, 15],
+    },
+    {
+      id: 4,
+      name: "Tester",
+      permission: [1, 2, 3],
+    },
+  ],
+  permissions: [
+    {
+      id: 1,
+      name: "create",
+      type: "users",
+    },
+    {
+      id: 2,
+      name: "read",
+      type: "users",
+    },
+    {
+      id: 3,
+      name: "edit",
+      type: "users",
+    },
+    {
+      id: 4,
+      name: "delete",
+      type: "users",
+    },
+    {
+      id: 5,
+      name: "create",
+      type: "roles",
+    },
+    {
+      id: 6,
+      name: "read",
+      type: "roles",
+    },
+    {
+      id: 7,
+      name: "edit",
+      type: "roles",
+    },
+    {
+      id: 8,
+      name: "delete",
+      type: "roles",
+    },
+    {
+      id: 9,
+      name: "create",
+      type: "permissions",
+    },
+    {
+      id: 10,
+      name: "read",
+      type: "permissions",
+    },
+    {
+      id: 11,
+      name: "edit",
+      type: "permissions",
+    },
+    {
+      id: 12,
+      name: "delete",
+      type: "permissions",
+    },
+    {
+      id: 13,
+      name: "create",
+      type: "todos",
+    },
+    {
+      id: 14,
+      name: "read",
+      type: "todos",
+    },
+    {
+      id: 15,
+      name: "edit",
+      type: "todos",
+    },
+    {
+      id: 16,
+      name: "delete",
+      type: "todos",
+    },
+  ],
+  todos: [
+    {
+      id: 1,
+      title: "Buy groceries",
+      status: true,
+    },
+    {
+      id: 2,
+      title: "Walk the dog",
+      status: false,
+    },
+    {
+      id: 3,
+      title: "Finish project report",
+      status: true,
+    },
+    {
+      id: 4,
+      title: "Call mom",
+      status: false,
+    },
+    {
+      id: 5,
+      title: "Read a book",
+      status: true,
+    },
+    {
+      id: 6,
+      title: "Pay utility bills",
+      status: false,
+    },
+    {
+      id: 7,
+      title: "Plan weekend trip",
+      status: true,
+    },
+    {
+      id: 8,
+      title: "Clean the kitchen",
+      status: false,
+    },
+    {
+      id: 9,
+      title: "Write blog post",
+      status: true,
+    },
+    {
+      id: 10,
+      title: "Meditate for 10 minutes",
+      status: false,
+    },
+    {
+      id: 1751290180736,
+      title: "abc",
+      status: false,
+    },
+  ],
+};
