@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default function Login({ obj }) {
   const { emailRef, passwordRef, handlePassword, handleEmail, user, err } = obj;
   const [showPassword, setShowPassword] = useState(false);
+  //
   return (
     <div className='flex flex-col items-center justify-center h-screen'>
       <div className='p-1 h-96 w-4xl bg-[#0e0e0e] rounded-3xl flex'>
@@ -11,9 +12,9 @@ export default function Login({ obj }) {
           <h1 className='text-4xl'>
             {user ? `Welcome ${user?.name}!` : "Sign in"}
           </h1>
-          <p className='py-4'>
+          {/* <p className='py-4'>
             {user ? <Link to='/'>{`< ${user?.email}`}</Link> : "Use your email"}
-          </p>
+          </p> */}
         </div>
 
         <div className='py-20'>
