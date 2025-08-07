@@ -12,9 +12,9 @@ export default function Login({ obj }) {
           <h1 className='text-4xl'>
             {user ? `Welcome ${user?.name}!` : "Sign in"}
           </h1>
-          {/* <p className='py-4'>
+          <p className='py-4'>
             {user ? <Link to='/'>{`< ${user?.email}`}</Link> : "Use your email"}
-          </p> */}
+          </p>
         </div>
 
         <div className='py-20'>
